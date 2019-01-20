@@ -1,0 +1,49 @@
+<html>
+<head>
+<title>
+test    
+</title>
+
+</head>
+<body>
+    <div id="old">
+{`title`}
+<h2>{`name`}</h2>    
+<p>{`score`}</p>
+<div>
+    {`for_people`}
+    <p>{`name`}</p>
+    <p>{`grade`}</p>
+    {`for`}
+    </div>
+</div>
+<div id="new"></div>
+<button onclick="news()">click</button>
+
+<script src="jquery-1.11.1.min.js"></script>
+<script src="rachel.js"></script>
+<script>
+    function news(){
+        let oldTem=document.getElementById("old").innerHTML;
+        let newData={
+            title:"test page",
+            name:"yzk",
+            score:99,
+            people:[{
+                name:"colin",
+                grade:"99"
+            },
+        {
+            name:"andy",
+            grade:"98"
+        }]
+        };
+        let newTem=rachel.render_template(oldTem,newData);
+        document.getElementById("new").innerHTML=newTem
+    }
+
+</script>
+</body>
+
+</html>
+
