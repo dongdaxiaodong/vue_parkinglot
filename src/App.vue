@@ -7,7 +7,6 @@
             </Header>
             <Layout>
                 <Sider hide-trigger :style="{background: '#fff'}">
-                    
                     <Menu active-name="0-0" theme="light" width="auto" :open-names="['1']">
                     <router-link to="/"><MenuItem name="1-0"><Icon type="ios-home" />主页</MenuItem></router-link>
                     <router-link to="/allSight"><MenuItem name="1-1"><Icon type="md-flower" />查看景区景点分布表</MenuItem></router-link>
@@ -19,7 +18,6 @@
                     </Menu>
                 </Sider>
                 <Layout :style="{padding: '0 24px 24px'}">
-                  
                     <Content :style="{padding: '24px', minHeight: '540px', background: '#fff'}">
                        <router-view/>
                     </Content>

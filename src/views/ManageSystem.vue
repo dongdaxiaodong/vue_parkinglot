@@ -218,17 +218,26 @@ export default {
             })
         },
         nodedelete(){
+            console.log(this.nodedelete.name+" and "+this.nodedelete.checkName)
             if(this.nodeDelete.name!=this.nodeDelete.checkName || this.nodeDelete.name=="" ||this.nodeDelete.checkName==""){
                 this.$Message.info("请确认清楚将要删除的景点")
             }
             else{
                 const deleteNode=this.nodeDelete.name;
+                const that=this
                 let url="http://127.0.0.1:8999/manage/deleteSight?"+"name="+deleteNode;
                 axios.get(url).then(function(response){
-                    this.nodeDelete.name=""
-                    this.nodeDelete.checkName=""
-                    this.$Message.info("删除成功");
-
+                    that.nodeDelete.name=""
+                    that.nodeDelete.checkName=""
+                    const result=response.data
+                    if(result==1){
+                    that.$Message.info("删除成功");
+                    }
+                    else{
+                        that.$Message.info("删除失败，请联系管理员")
+                    }
+        that.getAllNodesName()
+        that.getNodePath()
                 })
             }
         },
@@ -253,6 +262,8 @@ export default {
                 else{
                     that.$Message.info("添加失败，请联系程序员修复后台bug")
                 }
+        that.getAllNodesName()
+        that.getNodePath()
             })
         },
         getName(name){
@@ -279,10 +290,21 @@ export default {
                 that.nodeList=JSON.parse(res.data);
             })
         },
+        // 大坑 axios异步请求，所以请求参数
         deletePath(){
-                this.$Message.info("删除成功")
-                this.pathDeleteStart=""
-                this.pathDeleteEnd=""
+            const that=this;
+            const startIt=this.pathDeleteStart;
+            const endIt=this.pathDeleteEnd
+            console.log(this.pathDeleteStart+" and "+this.pathDeleteEnd)
+            let url="http://127.0.0.1:8999/sight/deletepath?"+"startpath="+startIt+"&endpath="+endIt
+            console.log(url)
+            axios.get(url).then(function(response){
+            that.$Message.info("删除成功")
+                that.pathDeleteStart=""
+                that.pathDeleteEnd=""
+        that.getAllNodesName()
+        that.getNodePath()
+            })
         },
         getNodePath(){
             const that=this

@@ -39,7 +39,7 @@
         <Form>
             <FormItem label="是否需要厕所">
           <Select v-model="outCar">
-            <Option v-for="td in tableData" :value="td.carid" :key="td.carid">{{ td.carid }}</Option>
+            <Option v-for="td in outData" :value="td.carNumber" :key="td.carNumber">{{ td.carNumber }}</Option>
           </Select>
         </FormItem>
         <FormItem>
@@ -79,6 +79,7 @@ export default {
       tableData:[
 
       ],
+      outData:"",
             inf:"hidden",
             theme1:"light",
             inputCarNum:"",
@@ -106,7 +107,8 @@ export default {
             let url="http://127.0.0.1:8999/sight/outcar?name="+outCar+"&time="+time;
             axios.get(url).then(function(response){
                 that.$Message.info("汽车离开车库成功！")   
-                that.outCar="";             
+                that.outCar="";       
+                that.allCars()      
             })
         },
         allCars(){
@@ -117,12 +119,13 @@ export default {
                 let settingNum=0;
                 let waitingNum=0;
                     let table=[];
-
+                let outDataarray=[]
                 allCars.forEach(element => {
                     let carstatus="";
                     if(element["status"]==1){
                         carstatus="正在停车"
                         settingNum+=1
+                        outDataarray.push(element)
                     }
                     else if(element["status"]==2){
                         carstatus="停车结束"
@@ -144,7 +147,7 @@ export default {
                 console.log(settingNum)
                 that.lv.thelv=(settingNum/that.lv.allCapacity)*100
                 console.log(that.lv.thelv)
-
+                that.outData=outDataarray
             })
         },
         inBut(){
@@ -175,6 +178,7 @@ export default {
         },
        
         getName(name){
+            this.allCars()
             if(name==1){
                 this.car.inf=null
                 this.car.in="hidden"
@@ -195,7 +199,7 @@ export default {
         }
     },
     mounted(){
-        this.allCars()
+        this.getName(1)
     }
 }
 </script>
