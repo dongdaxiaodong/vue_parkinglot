@@ -212,9 +212,10 @@ export default {
         serveTip(){
             const title=this.tip
             const date=new Date().toLocaleString()
+            const that=this
             let url="http://127.0.0.1:8999/manage/saveTip?"+"title="+title+"&date="+date
             axios.get(url).then(function(response){
-                this.$Message.info("添加新通知成功")
+                that.$Message.info("添加新通知成功")
             })
         },
         nodedelete(){
