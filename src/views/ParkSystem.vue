@@ -37,7 +37,7 @@
     </Card>
     <Card :hidden="car.out">
         <Form>
-            <FormItem label="是否需要厕所">
+            <FormItem label="汽车离开停车场">
           <Select v-model="outCar">
             <Option v-for="td in outData" :value="td.carNumber" :key="td.carNumber">{{ td.carNumber }}</Option>
           </Select>
