@@ -1,4 +1,4 @@
-# mydatastructure
+# 东北大学软件学院数据结构课程设计前端部分
 
 ## Project setup
 ```
